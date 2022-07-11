@@ -22,6 +22,12 @@ const questions = [
       name: 'usage',
     },
     {
+      type: 'list',
+      message: "Choose a license for your project.",
+      choices: ['Apache_2.0', 'Boost_1.0', 'BSD_3--Clause', 'BSD_2--Clause', 'MIT'],
+      name: 'license'
+    },
+    {
       message: 'What is the contribution guidelines of your project?',
       name: 'contribution',
     },
@@ -42,9 +48,7 @@ const questions = [
 // TODO: Create a function to write README file
 
 function writeToFile(data) {
-    let dataStr = JSON.stringify(data);
-    // fs.writeFile('README.md', (dataStr), (err) => (err) ? console.log("Error") : console.log("Success"));
-    fs.appendFile("README.md", generateMarkdown(data), (err) => (err) ? console.log("Error Title") : console.log("Success Title"))
+    fs.writeFile("README.md", generateMarkdown(data), (err) => (err) ? console.log("Error with generating a README") : console.log("Success! README generated"))
 }
 
 
@@ -54,7 +58,6 @@ function init() {
     inquirer.prompt(questions)
     .then((data) => {
         writeToFile(data);
-        generateMarkdown(data.title);
     })
 };
 
